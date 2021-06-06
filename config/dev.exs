@@ -6,6 +6,7 @@ config :nfl_rushing, NflRushing.Repo,
   password: "postgres",
   database: "nfl_rushing_dev",
   hostname: "localhost",
+  port: 5344,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
