@@ -13,6 +13,26 @@ defmodule NflRushingWeb.PageLive do
     {:noreply, assign(socket, players: NFLStats.paginated_players(page_size: per_page))}
   end
 
+  @impl true
+  def handle_event("prev_page", _params, socket) do
+    {:noreply,
+     update(
+       socket,
+       :players,
+       &NFLStats.paginated_players(page_size: &1.page_size, page: &1.page_number-1)
+     )}
+  end
+
+  @impl true
+  def handle_event("next_page", _params, socket) do
+    {:noreply,
+     update(
+       socket,
+       :players,
+       &NFLStats.paginated_players(page_size: &1.page_size, page: &1.page_number+1)
+     )}
+  end
+
   def options_for_select_with_selected(options, selected) do
     Enum.map(options, fn option ->
       [key: option, value: option, selected: option == selected]
