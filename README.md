@@ -1,8 +1,23 @@
 ### Kleber + theScore
 
+### Web App on Heroku
+
+https://the-score-kleber.herokuapp.com/
+
 ### Requirements
 
 https://github.com/tsicareers/nfl-rushing#challenge-requirements
+
+#### Sorting
+
+![sorting](http://g.recordit.co/LSDbVqiYxy.gif)
+
+#### Download CSV
+
+![csv](http://g.recordit.co/gWgsLHWZVK.gif)
+#### Filter by Name
+
+![filter-by-name](http://g.recordit.co/RiCSKpqaI9.gif)
 
 ### Initial thoughts
 
@@ -13,16 +28,8 @@ The main concerns as far as I can tell are:
 * Add a database index on all sortable fields
 * Add a database full-text search index to the searchable fields
 * Implement SQL pagination to prevent fetching thousands of records at once
-* CSV download should stream the data to the client, avoiding loading a heaps of data to memory
+* CSV download should stream the data to the client OR just download the data rendered in the browser, avoiding loading a heaps of data to memory.
 * Avoid counts, perhaps use `EXPLAIN` and extract an approximate number of rows
-
-```sql
-EXPLAIN SELECT count(*) FROM items;
-
-Aggregate  (cost=20834.00..20834.01 rows=1 width=0)
-  ->  Seq Scan on items  (cost=0.00..18334.00 rows=1000000 width=0)
-```
-<small>[source](https://www.citusdata.com/blog/2016/10/12/count-performance/)</small>
 
 ### Goals
 
@@ -34,8 +41,34 @@ A Naive implementation follow the steps bellow:
 * Leverage LiveView + PubSub to implement a rich UI
     * Table with Pagination
     * Sorting
-    * (nice to have) Autocomplete
+    * Searching
 * Deploy on Heroku
 
 
+### What I haven't done
 
+1. For the sake of time, I haven't written much unit and integration tests. With more time, I'd make sure PageLive had more tests.
+2. With more time, I'd have moved the pagination code from NFLStats to the view layer.
+3. With more time, I'd have improved the sorting implementation.  
+4. The NFLStats could return "querable" objects allowing PageLive to chain the pagination, sorting and search queries.
+### Running Locally 
+
+Make sure you have Erlang 24.0.1 and Elixir 1.12.1 installed, then run:
+
+```sh
+# Install dependencies and setup database
+mix deps.get
+mix ecto.setup
+
+# Run the HTTP server
+mix phx.server 
+
+# Import NFL Rushing entires
+mix import_nfl_player_stats --json ./rushing.json
+```
+
+### Tests
+
+```sh
+mix test
+```
