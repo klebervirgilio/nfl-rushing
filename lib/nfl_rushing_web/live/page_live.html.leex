@@ -1,48 +1,73 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-
-  <form phx-change="suggest" phx-submit="search">
-    <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/>
-    <datalist id="results">
-      <%= for {app, _vsn} <- @results do %>
-        <option value="<%= app %>"><%= app %></option>
+  <h1>Rushing Stats</h1>
+  <div class="row g-2">
+    <div class="col-md search-by-name">
+      <div class="form-floating">
+        <input class="form-control" id="search-by-name" placeholder="...">
+        <label for="search-by-name">Search by Name</label>
+      </div>
+    </div>
+    <div class="col-md">
+      <div class="form-floating">
+        <select class="form-select" id="floatingSelectGrid">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+        <label for="floatingSelectGrid">Show Items per Page</label>
+      </div>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Player</th>
+        <th scope="col"class="table-light" >Yds <i class="bi bi-sort-alpha-down"></i></th>
+        <th scope="col"class="table-secondary" >TD <i class="bi bi-sort-alpha-down"></i></th>
+        <th scope="col"class="table-light" >Lng <i class="bi bi-sort-alpha-down"></i></th>
+        <th scope="col">Team</th>
+        <th scope="col">Pos</th>
+        <th scope="col">Att</th>
+        <th scope="col">Att/G</th>
+        <th scope="col">Avg</th>
+        <th scope="col">Yds/G</th>
+        <th scope="col">1st</th>
+        <th scope="col">1st%</th>
+        <th scope="col">20+</th>
+        <th scope="col">40+</th>
+        <th scope="col">FUM</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for player <- @players do %>
+        <tr>
+          <td><%= player.name %></td>
+          <td><%= player.team %></td>
+          <td><%= player.postion %></td>
+          <td><%= player.rushing_attempts %></td>
+          <td><%= player.rushing_attempts_per_game %></td>
+          <td><%= player.total_rushing_yards %></td>
+          <td><%= player.rushing_average_yards_per_attempt %></td>
+          <td><%= player.rushing_yards_per_game %></td>
+          <td><%= player.total_rushing_touchdowns %></td>
+          <td><%= player.longest_rush %></td>
+          <td><%= player.rushing_first_downs %></td>
+          <td><%= player.rushing_first_downs_percentage %></td>
+          <td><%= player.rushing_20_yards_each %></td>
+          <td><%= player.rushing_40_yards_each %></td>
+          <td><%= player.rushing_fumbles %></td>
+        </tr>
       <% end %>
-    </datalist>
-    <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button>
-  </form>
-</section>
-
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination col align-self-end">
+      <li class="page-item">
+        <a class="page-link" href="#">Previous</a>
       </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.5/CHANGELOG.md">v1.5 Changelog</a>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
       </li>
     </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-    </ul>
-  </article>
+  </nav>
 </section>
