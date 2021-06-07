@@ -8,16 +8,18 @@
       </div>
     </div>
     <div class="col-md">
-      <div class="form-floating">
-        <select class="form-select" id="floatingSelectGrid">
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-        </select>
-        <label for="floatingSelectGrid">Show Items per Page</label>
-      </div>
+      <form phx-change="update_players">
+        <div class="form-floating">
+          <%= select :pagination,
+                     :per_page,
+                     options_for_select_with_selected([10,20,30], @per_page),
+                     class: "form-select", id: :floatingSelectGrid %>
+          <label for="floatingSelectGrid">Show Items per Page</label>
+        </div>
+      </form>
     </div>
   </div>
+
   <table class="table">
     <thead>
       <tr>
