@@ -19,14 +19,15 @@
       </form>
     </div>
   </div>
+  <a class="px-2 <%= if !Enum.any?(@sort_by), do: "invisible" %>" phx-click="sort_by" phx-value-sort_by="nothing">Reset Sorting</a>
 
-  <table class="table">
+  <table class="table mt-2">
     <thead>
       <tr>
         <th scope="col">Player</th>
-        <th scope="col"class="table-light" >Yds <i class="bi bi-sort-alpha-down"></i></th>
-        <th scope="col"class="table-secondary" >TD <i class="bi bi-sort-alpha-down"></i></th>
-        <th scope="col"class="table-light" >Lng <i class="bi bi-sort-alpha-down"></i></th>
+        <th scope="col" phx-click="sort_by" phx-value-sort_by="total_rushing_yards" class="<%= sort_by_class(@sort_by, :total_rushing_yards) %>">Yds <i class="bi <%= sort_by_icon(@sort_by, :total_rushing_yards) %>"></i></th>
+        <th scope="col" phx-click="sort_by" phx-value-sort_by="total_rushing_touchdowns"  class="<%= sort_by_class(@sort_by, :total_rushing_touchdowns) %>" >TD <i class="bi <%= sort_by_icon(@sort_by, :total_rushing_touchdowns) %>"></i></th>
+        <th scope="col" phx-click="sort_by" phx-value-sort_by="longest_rush" class="<%= sort_by_class(@sort_by, :longest_rush) %>" >Lng <i class="bi <%= sort_by_icon(@sort_by, :longest_rush) %>"></i></th>
         <th scope="col">Team</th>
         <th scope="col">Pos</th>
         <th scope="col">Att</th>
@@ -44,15 +45,15 @@
       <%= for player <- @players do %>
         <tr>
           <td><%= player.name %></td>
+          <td><%= player.total_rushing_yards %></td>
+          <td><%= player.total_rushing_touchdowns %></td>
+          <td><%= player.longest_rush %></td>
           <td><%= player.team %></td>
           <td><%= player.postion %></td>
           <td><%= player.rushing_attempts %></td>
           <td><%= player.rushing_attempts_per_game %></td>
-          <td><%= player.total_rushing_yards %></td>
           <td><%= player.rushing_average_yards_per_attempt %></td>
           <td><%= player.rushing_yards_per_game %></td>
-          <td><%= player.total_rushing_touchdowns %></td>
-          <td><%= player.longest_rush %></td>
           <td><%= player.rushing_first_downs %></td>
           <td><%= player.rushing_first_downs_percentage %></td>
           <td><%= player.rushing_20_yards_each %></td>

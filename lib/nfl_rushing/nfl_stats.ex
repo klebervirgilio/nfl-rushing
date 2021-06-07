@@ -4,18 +4,24 @@ defmodule NflRushing.NFLStats do
 
   import Ecto.Query
 
-  def search_players_by_name("", paging_opts), do: paginated_players(paging_opts)
+  def search_players_by_name("", paginaiton_opts), do: paginated_players(paginaiton_opts)
 
-  def search_players_by_name(query, paging_opts) do
+  def search_players_by_name(query, paginaiton_opts) do
     Player
     |> where([t], fragment("similarity(?, ?) > ?", t.name, ^query, 0.15))
     |> order_by([t], fragment("similarity(?, ?) DESC", t.name, ^query))
-    |> Repo.paginate(paging_opts)
+    |> Repo.paginate(paginaiton_opts)
   end
 
-  def paginated_players(paging_opts \\ []) do
+  def sort_by(values, paginaiton_opts) do
+    Player
+    |> order_by([t], ^values)
+    |> Repo.paginate(paginaiton_opts)
+  end
+
+  def paginated_players(paginaiton_opts \\ []) do
     from(p in Player, order_by: [asc: :name])
-    |> Repo.paginate(paging_opts)
+    |> Repo.paginate(paginaiton_opts)
   end
 
   def create_player(player_attrs = %{}) do
