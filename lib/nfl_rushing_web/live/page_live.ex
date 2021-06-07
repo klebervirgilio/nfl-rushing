@@ -14,12 +14,22 @@ defmodule NflRushingWeb.PageLive do
   end
 
   @impl true
+  def handle_event("search", %{"value" => value}, socket) do
+    {:noreply,
+     update(
+       socket,
+       :players,
+       &NFLStats.search_players_by_name(value, page_size: &1.page_size, page: &1.page_number - 1)
+     )}
+  end
+
+  @impl true
   def handle_event("prev_page", _params, socket) do
     {:noreply,
      update(
        socket,
        :players,
-       &NFLStats.paginated_players(page_size: &1.page_size, page: &1.page_number-1)
+       &NFLStats.paginated_players(page_size: &1.page_size, page: &1.page_number - 1)
      )}
   end
 
@@ -29,7 +39,7 @@ defmodule NflRushingWeb.PageLive do
      update(
        socket,
        :players,
-       &NFLStats.paginated_players(page_size: &1.page_size, page: &1.page_number+1)
+       &NFLStats.paginated_players(page_size: &1.page_size, page: &1.page_number + 1)
      )}
   end
 

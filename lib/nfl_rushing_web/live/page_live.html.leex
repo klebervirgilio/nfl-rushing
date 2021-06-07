@@ -3,7 +3,7 @@
   <div class="row g-2">
     <div class="col-md search-by-name">
       <div class="form-floating">
-        <input class="form-control" id="search-by-name" placeholder="...">
+        <input phx-debounce="2000" phx-window-keyup="search" class="form-control" list="datalistOptions" id="search-by-name" placeholder="...">
         <label for="search-by-name">Search by Name</label>
       </div>
     </div>
