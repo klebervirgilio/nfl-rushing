@@ -4,7 +4,7 @@ defmodule PaginationComponent do
   def render(assigns) do
     ~L"""
       <nav aria-label="Page navigation example">
-      <ul class="pagination col align-self-end">
+      <ul class="pagination col justify-content-end">
         <li class="page-item <%= prev?(@players) %>">
           <a class="page-link" phx-click="prev_page" href="#">Previous</a>
         </li>
