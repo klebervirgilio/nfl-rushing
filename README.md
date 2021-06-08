@@ -8,16 +8,11 @@ https://the-score-kleber.herokuapp.com/
 
 https://github.com/tsicareers/nfl-rushing#challenge-requirements
 
-#### Sorting
+#### Demo
 
-![sorting](http://g.recordit.co/LSDbVqiYxy.gif)
+[demo gif](https://bebop-app.s3-ap-southeast-2.amazonaws.com/uploads/static/Screen+Recording+2021-06-08+at+18.37.04.gif)
 
-#### Download CSV
-
-![csv](http://g.recordit.co/gWgsLHWZVK.gif)
-#### Filter by Name
-
-![filter-by-name](http://g.recordit.co/RiCSKpqaI9.gif)
+[demo mov](https://bebop-app.s3-ap-southeast-2.amazonaws.com/uploads/static/Screen%2BRecording%2B2021-06-08%2Bat%2B18.37.04.mov)
 
 ### Initial thoughts
 
@@ -49,11 +44,10 @@ A Naive implementation follow the steps bellow:
 
 1. For the sake of time, I haven't written much unit and integration tests. With more time, I'd make sure PageLive had more tests.
 2. With more time, I'd have moved the pagination code from NFLStats to the view layer.
-3. With more time, I'd have improved the sorting implementation.  
-4. The NFLStats could return "querable" objects allowing PageLive to chain the pagination, sorting and search queries.
+3. With more time, I'd have improved the sorting implementation.
 ### Running Locally 
 
-Make sure you have Erlang 24.0.1 and Elixir 1.12.1 installed, then run:
+Make sure you have Erlang 24.0.1 and Elixir 1.12.1 installed and PostgreSQL running, then run:
 
 ```sh
 # Install dependencies and setup database
