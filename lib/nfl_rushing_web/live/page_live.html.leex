@@ -3,7 +3,7 @@
   <div class="row g-2">
     <div class="col-md search-by-name">
       <div class="form-floating">
-        <input phx-debounce="2000" phx-window-keyup="search" class="form-control" list="datalistOptions" id="search-by-name" placeholder="...">
+        <input phx-debounce="2000" phx-window-keyup="search" class="form-control" list="datalistOptions" value="<%= @search_by %>" id="search-by-name" placeholder="...">
         <label for="search-by-name">Search by Name</label>
       </div>
     </div>
@@ -12,7 +12,7 @@
         <div class="form-floating">
           <%= select :pagination,
                      :per_page,
-                     options_for_select_with_selected([10,20,30], @per_page),
+                     options_for_select_with_selected([5, 10, 20, 30, 50], @per_page),
                      class: "form-select", id: :floatingSelectGrid %>
           <label for="floatingSelectGrid">Show Items per Page</label>
         </div>
@@ -23,7 +23,7 @@
   <table id="players-table" class="table mt-2">
     <thead>
       <tr>
-        <th scope="col">Player</th>
+        <th scope="col">Player (<%= @players.total_entries %>)</th>
         <th scope="col" phx-click="sort_by" phx-value-sort_by="total_rushing_yards" class="<%= sort_by_class(@sort_by, :total_rushing_yards) %>">Yds <i class="bi <%= sort_by_icon(@sort_by, :total_rushing_yards) %>"></i></th>
         <th scope="col" phx-click="sort_by" phx-value-sort_by="total_rushing_touchdowns"  class="<%= sort_by_class(@sort_by, :total_rushing_touchdowns) %>" >TD <i class="bi <%= sort_by_icon(@sort_by, :total_rushing_touchdowns) %>"></i></th>
         <th scope="col" phx-click="sort_by" phx-value-sort_by="longest_rush" class="<%= sort_by_class(@sort_by, :longest_rush) %>" >Lng <i class="bi <%= sort_by_icon(@sort_by, :longest_rush) %>"></i></th>

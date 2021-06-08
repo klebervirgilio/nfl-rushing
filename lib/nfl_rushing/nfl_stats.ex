@@ -4,24 +4,28 @@ defmodule NflRushing.NFLStats do
 
   import Ecto.Query
 
-  def search_players_by_name("", paginaiton_opts), do: paginated_players(paginaiton_opts)
-
-  def search_players_by_name(query, paginaiton_opts) do
-    Player
-    |> where([t], fragment("similarity(?, ?) > ?", t.name, ^query, 0.15))
-    |> order_by([t], fragment("similarity(?, ?) DESC", t.name, ^query))
-    |> Repo.paginate(paginaiton_opts)
+  def players() do
+    from(p in Player, order_by: :name)
   end
 
-  def sort_by(values, paginaiton_opts) do
-    Player
+  @spec search_players_by_name(Ecto.Query.t(), String.t()) :: Ecto.Query.t()
+  def search_players_by_name(_, value) when not is_binary(value) or length(value) == 0,
+    do: players()
+
+  def search_players_by_name(querable, query) do
+    querable
+    |> where([t], fragment("similarity(?, ?) > ?", t.name, ^query, 0.2))
+  end
+
+  @spec sort_by(Ecto.Query.t(), keyword()) :: Ecto.Query.t()
+  def sort_by(querable, values) do
+    querable
     |> order_by([t], ^values)
-    |> Repo.paginate(paginaiton_opts)
   end
 
-  def paginated_players(paginaiton_opts \\ []) do
-    from(p in Player, order_by: [asc: :name])
-    |> Repo.paginate(paginaiton_opts)
+  @spec paginated_players(Ecto.Query.t(), keyword()) :: Ecto.Query.t()
+  def paginated_players(querable, paginaiton_opts \\ []) do
+    Repo.paginate(querable, paginaiton_opts)
   end
 
   def create_player(player_attrs = %{}) do
