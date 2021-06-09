@@ -22,6 +22,7 @@ defmodule NflRushingWeb.PageLive do
   def handle_event("update_players", %{"pagination" => %{"per_page" => per_page}}, socket) do
     {:noreply,
      assign(socket,
+       per_page: per_page,
        players: NFLStats.paginated_players(socket.assigns.querable, page_size: per_page)
      )}
   end
