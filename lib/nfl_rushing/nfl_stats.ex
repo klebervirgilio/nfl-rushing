@@ -9,8 +9,8 @@ defmodule NflRushing.NFLStats do
   end
 
   @spec search_players_by_name(Ecto.Query.t(), String.t()) :: Ecto.Query.t()
-  def search_players_by_name(_, value) when not is_binary(value) or length(value) == 0,
-    do: players()
+  def search_players_by_name(querable, value) when not is_binary(value) or value == "",
+    do: querable
 
   def search_players_by_name(querable, query) do
     querable

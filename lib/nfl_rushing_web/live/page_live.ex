@@ -10,7 +10,7 @@ defmodule NflRushingWeb.PageLive do
 
     {:ok,
      assign(socket,
-       querable: players,
+       querable: Player,
        search_by: nil,
        sort_by: %{},
        per_page: 10,
