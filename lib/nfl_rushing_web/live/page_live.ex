@@ -120,6 +120,9 @@ defmodule NflRushingWeb.PageLive do
      )}
   end
 
+  def options_for_select_with_selected(options, selected) when is_binary(selected),
+    do: options_for_select_with_selected(options, String.to_integer(selected))
+
   def options_for_select_with_selected(options, selected) do
     Enum.map(options, fn option ->
       [key: option, value: option, selected: option == selected]
