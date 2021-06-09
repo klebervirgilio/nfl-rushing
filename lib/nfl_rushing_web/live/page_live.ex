@@ -57,12 +57,7 @@ defmodule NflRushingWeb.PageLive do
   def handle_event("search", %{"value" => value}, socket) do
     players = socket.assigns.players
 
-    querable =
-      if String.trim(value) == "" do
-        socket.assigns.querable
-      else
-        build_query(socket.assigns.sort_by, value)
-      end
+    querable = build_query(socket.assigns.sort_by, String.trim(value))
 
     {:noreply,
      assign(
