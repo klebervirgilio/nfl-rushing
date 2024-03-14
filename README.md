@@ -1,18 +1,8 @@
-### Kleber + theScore
-
-### Web App on Heroku
-
-https://the-score-kleber.herokuapp.com/
+### conding test made for theScore
 
 ### Requirements
 
 https://github.com/tsicareers/nfl-rushing#challenge-requirements
-
-#### Demo
-
-[demo gif](https://bebop-app.s3-ap-southeast-2.amazonaws.com/uploads/static/Screen+Recording+2021-06-08+at+18.37.04.gif)
-
-[demo mov](https://bebop-app.s3-ap-southeast-2.amazonaws.com/uploads/static/Screen%2BRecording%2B2021-06-08%2Bat%2B18.37.04.mov)
 
 ### Initial thoughts
 
